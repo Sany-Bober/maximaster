@@ -1,0 +1,51 @@
+.filter-panel {
+    margin: 40px 0 20px 50px;
+    font-size: 20px;
+}
+.filter-panel label {
+    margin-right: 16px;
+}
+.filter-panel input[type="number"] {
+    width: 80px;
+    font-size: 18px;
+    padding: 2px 6px;
+    margin-left: 4px;
+    margin-right: 8px;
+    border: 2px solid #888;
+    border-radius: 2px;
+    background: #f5f5f5;
+}
+.filter-panel button {
+    font-size: 20px;
+    padding: 2px 18px;
+    border-radius: 6px;
+    border: 2px solid #444;
+    background: #eaeaea;
+    cursor: pointer;
+}
+#tableContainer {
+    margin-left: 60px;
+    margin-top: 20px;
+}
+table {
+    border-collapse: collapse;
+    min-width: 600px;
+    font-size: 20px;
+    background: #fff;
+}
+th, td {
+    border: 2px solid #444;
+    padding: 8px 18px;
+    text-align: left;
+}
+th {
+    background: #e5e5e5;
+}
+tr:nth-child(even) td {
+    background: #f7f7f7;
+}
+.no-data {
+    font-size: 22px;
+    color: #a00;
+    margin: 30px 0 0 0;
+} 

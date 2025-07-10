@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Таблица товаров</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="filter-panel">
+        <label>Цена от: <input type="number" id="priceFrom" value="0" min="0"></label>
+        <label>до: <input type="number" id="priceTo" value="10000" min="0"></label>
+        <button id="refreshBtn">Обновить</button>
+    </div>
+    <div id="tableContainer"></div>
+    <script src="script.js"></script>
+</body>
+</html>
