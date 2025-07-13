@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Калькулятор доставки</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 30px; }
+        .result { margin-top: 15px; font-size: 1.1em; }
+        .error { color: #b00; }
+        select, input[type="text"] { width: 220px; margin-bottom: 8px; padding: 5px; font-size: 1em; }
+        button { padding: 6px 18px; font-size: 1em; border-radius: 4px; border: 1px solid #888; background: #eee; cursor: pointer; }
+        button:hover { background: #ddd; }
+    </style>
+</head>
+<body>
+    <h1>Калькулятор доставки</h1>
+    <form id="delivery-form">
+        <select id="city" name="city"></select><br>
+        <input type="text" id="weight" name="weight" placeholder="Вес, кг"><br>
+        <button type="submit">Рассчитать</button>
+    </form>
+    <div class="result" id="result"></div>
+    <script>
+        // Получение списка городов
+        function loadCities() {
+            fetch('/cities')
+                .then(r => r.json())
+                .then(data => {
+                    let select = document.getElementById('city');
+                    select.innerHTML = '';
+                    data.forEach(city => {
+                        let opt = document.createElement('option');
+                        opt.value = city;
+                        opt.textContent = city;
+                        select.appendChild(opt);
+                    });
+                    // По умолчанию Москва
+                    select.value = 'Москва';
+                });
+        }
+        loadCities();
+
+        // Обработка формы
+        document.getElementById('delivery-form').onsubmit = function(e) {
+            e.preventDefault();
+            let city = document.getElementById('city').value;
+            let weight = document.getElementById('weight').value;
+            let resultDiv = document.getElementById('result');
+            resultDiv.textContent = 'Загрузка...';
+            let formData = new FormData();
+            formData.append('city', city);
+            formData.append('weight', weight);
+            fetch('/delivery', {
+                method: 'POST',
+                body: formData
+            })
+            .then(r => r.json())
+            .then(data => {
+                if (data.status === 'OK') {
+                    resultDiv.innerHTML = data.message;
+                    resultDiv.className = 'result';
+                } else {
+                    resultDiv.innerHTML = data.message;
+                    resultDiv.className = 'result error';
+                }
+            })
+            .catch(() => {
+                resultDiv.textContent = 'Ошибка соединения с сервером.';
+                resultDiv.className = 'result error';
+            });
+        };
+    </script>
+</body>
+</html> 
